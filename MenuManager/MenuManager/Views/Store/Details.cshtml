@@ -1,0 +1,38 @@
+﻿@model MenuManager.Models.Store
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+@HtmlBuilder.DetailsHeader(Url, "Store", Model.ID, "Stores", Model.Name)
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Phone)</dt>
+        <dd>@Html.DisplayFor(model => model.Phone)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Address)</dt>
+        <dd>@Html.DisplayFor(model => model.Address)</dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Menus)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "Menu", Model.Menus.Count(), new { s = Model.ID })</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.MenuItems)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "MenuItem", Model.MenuItems.Count(), new { s = Model.ID })</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Ingredients)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "Ingredient", Model.Ingredients.Count(), new { s = Model.ID })</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Employees)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "Employee", Model.Employees.Count(), new { s = Model.ID })</dd>
+    </dl>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/details-delete.js")
+}

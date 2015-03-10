@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MenuManagerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Position" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Wage" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Store_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Store" Relationship="Self.FK_Employee_Store" FromRole="Employee" ToRole="Store" />
+  </EntityType>
+  <EntityType Name="Ingredient">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="Amount_Unit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Amount_Low" Type="Int32" />
+    <Property Name="Date_Restocked" Type="DateTime" Precision="0" />
+    <Property Name="Shelf_Life" Type="Int32" />
+    <Property Name="Store_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Store" Relationship="Self.FK_Ingredient_Store" FromRole="Ingredient" ToRole="Store" />
+    <NavigationProperty Name="MenuItems" Relationship="Self.Menu_Item_Ingredients" FromRole="Ingredient" ToRole="Menu_Item" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Store_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Store" Relationship="Self.FK_Menu_Store" FromRole="Menu" ToRole="Store" />
+    <NavigationProperty Name="MenuItems" Relationship="Self.FK_MenuItem_Menu" FromRole="Menu" ToRole="Menu_Item" />
+  </EntityType>
+  <EntityType Name="MenuItem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+    <Property Name="Menu_ID" Type="Int32" Nullable="false" />
+    <Property Name="Calories" Type="Int32" />
+    <Property Name="Is_Vegetarian" Type="Boolean" />
+    <Property Name="Is_Vegan" Type="Boolean" />
+    <NavigationProperty Name="Menu" Relationship="Self.FK_MenuItem_Menu" FromRole="Menu_Item" ToRole="Menu" />
+    <NavigationProperty Name="Ingredients" Relationship="Self.Menu_Item_Ingredients" FromRole="Menu_Item" ToRole="Ingredient" />
+  </EntityType>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Store" FromRole="Store" ToRole="Employee" />
+    <NavigationProperty Name="Ingredients" Relationship="Self.FK_Ingredient_Store" FromRole="Store" ToRole="Ingredient" />
+    <NavigationProperty Name="Menus" Relationship="Self.FK_Menu_Store" FromRole="Store" ToRole="Menu" />
+  </EntityType>
+  <Association Name="FK_Employee_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Store_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ingredient_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="1" />
+    <End Role="Ingredient" Type="Self.Ingredient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ingredient">
+        <PropertyRef Name="Store_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Menu_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="1" />
+    <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Menu">
+        <PropertyRef Name="Store_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MenuItem_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+    <End Role="Menu_Item" Type="MenuManagerDBModel.MenuItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Menu_Item">
+        <PropertyRef Name="Menu_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Menu_Item_Ingredients">
+    <End Role="Menu_Item" Type="MenuManagerDBModel.MenuItem" Multiplicity="*" />
+    <End Role="Ingredient" Type="Self.Ingredient" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="MenuManagerDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Ingredients" EntityType="Self.Ingredient" />
+    <EntitySet Name="Menus" EntityType="Self.Menu" />
+    <EntitySet Name="MenuItems" EntityType="MenuManagerDBModel.MenuItem" />
+    <EntitySet Name="Stores" EntityType="Self.Store" />
+    <AssociationSet Name="FK_Employee_Store" Association="Self.FK_Employee_Store">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingredient_Store" Association="Self.FK_Ingredient_Store">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="Ingredient" EntitySet="Ingredients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Menu_Store" Association="Self.FK_Menu_Store">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="Menu" EntitySet="Menus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenuItem_Menu" Association="Self.FK_MenuItem_Menu">
+      <End Role="Menu" EntitySet="Menus" />
+      <End Role="Menu_Item" EntitySet="MenuItems" />
+    </AssociationSet>
+    <AssociationSet Name="Menu_Item_Ingredients" Association="Self.Menu_Item_Ingredients">
+      <End Role="Menu_Item" EntitySet="MenuItems" />
+      <End Role="Ingredient" EntitySet="Ingredients" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

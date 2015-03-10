@@ -1,0 +1,30 @@
+﻿@model MenuManager.Models.Employee
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+@HtmlBuilder.DetailsHeader(Url, "Employee", Model.ID, "Employees", Model.Name)
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Position)</dt>
+        <dd>@Html.DisplayFor(model => model.Position)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Wage)</dt>
+        <dd>@Html.DisplayFor(model => model.Wage)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Phone)</dt>
+        <dd>@Html.DisplayFor(model => model.Phone)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Store)</dt>
+        <dd>@HtmlBuilder.DetailsLink(Url, "Store", Model.Store_ID, Model.Store.Name)</dd>
+    </dl>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/details-delete.js")
+}

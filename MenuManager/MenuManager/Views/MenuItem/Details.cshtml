@@ -1,0 +1,60 @@
+﻿@model MenuManager.Models.MenuItem
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+@HtmlBuilder.DetailsHeader(Url, "MenuItem", Model.ID, "Menu Items", Model.Name)
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Price)</dt>
+        <dd>@Html.DisplayFor(model => model.Price)</dd>
+
+        @if (Model.Calories != null)
+        {
+            <dt>@Html.DisplayNameFor(model => model.Calories)</dt>
+            <dd>@Html.DisplayFor(model => model.Calories)</dd>
+        }
+
+        @if (Model.Is_Vegetarian != null)
+        {
+            <dt>@Html.DisplayNameFor(model => model.Is_Vegetarian)</dt>
+            <dd>@Html.DisplayFor(model => model.IsVegetarianYesNo)</dd>
+        }
+
+        @if (Model.Is_Vegan != null)
+        {
+            <dt>@Html.DisplayNameFor(model => model.Is_Vegan)</dt>
+            <dd>@Html.DisplayFor(model => model.IsVeganYesNo)</dd>
+        }
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Menu.Store)</dt>
+        <dd>@HtmlBuilder.DetailsLink(Url, "Store", Model.Menu.Store_ID, Model.Menu.Store.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Menu)</dt>
+        <dd>@HtmlBuilder.DetailsLink(Url, "Menu", Model.Menu_ID, Model.Menu.Name)</dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        @{
+            string ingredients = string.Empty;
+            foreach (Ingredient i in Model.Ingredients)
+            {
+                ingredients += i.Name + Environment.NewLine;
+            }
+        }
+        <dt>@Html.DisplayNameFor(model => model.Ingredients)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "Ingredient", Model.Ingredients.Count(), new { mi = Model.ID })</dd>
+        <dd>@HtmlBuilder.TextWithBreaks(ingredients)</dd>
+    </dl>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/details-delete.js")
+}

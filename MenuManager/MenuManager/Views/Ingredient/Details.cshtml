@@ -1,0 +1,60 @@
+﻿@model MenuManager.Models.Ingredient
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+@HtmlBuilder.DetailsHeader(Url, "Ingredient", Model.ID, "Ingredients", Model.Name)
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Amount)</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+            @Html.DisplayFor(model => model.Amount_Unit)
+        </dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Amount_Low)</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Amount_Low)
+            @Html.DisplayFor(model => model.Amount_Unit)
+        </dd>
+
+        <dt>Is Low</dt>
+        <dd>@Model.IsLowYesNo()</dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Date_Restocked)</dt>
+        <dd>@Html.DisplayFor(model => model.Date_Restocked)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Age)</dt>
+        <dd>@Html.DisplayFor(model => model.Age)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Shelf_Life)</dt>
+        <dd>@Html.DisplayFor(model => model.Shelf_Life)</dd>
+
+        <dt>Is Old</dt>
+        <dd>@Model.IsOldYesNo()</dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Store)</dt>
+        <dd>@HtmlBuilder.DetailsLink(Url, "Store", Model.Store_ID, Model.Store.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Menus)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "Menu", Model.Menus.Count(), new { i = Model.ID })</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.MenuItems)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "MenuItem", Model.MenuItems.Count(), new { i = Model.ID })</dd>
+    </dl>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/details-delete.js")
+}

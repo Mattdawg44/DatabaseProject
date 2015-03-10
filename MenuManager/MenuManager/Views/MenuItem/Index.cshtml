@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MenuManager.Models.MenuItem>
+
+@{
+    ViewBag.Title = "Menu Items";
+}
+
+<h2>Menu Items</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Calories)</th>
+            <th>@Html.DisplayNameFor(model => model.Is_Vegetarian)</th>
+            <th>@Html.DisplayNameFor(model => model.Is_Vegan)</th>
+            <th>@Html.DisplayNameFor(model => model.Menu)</th>
+            <th>@Html.DisplayNameFor(model => model.Menu.Store)</th>
+            <th>@Html.DisplayNameFor(model => model.Ingredients)</th>
+            <th></th>
+        </tr>
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@HtmlBuilder.DetailsLink(Url, "MenuItem", item.ID, item.Name)</td>
+        <td>@Html.DisplayFor(modelItem => item.Price)</td>
+        <td>@Html.DisplayFor(modelItem => item.Calories)</td>
+        <td>@Html.DisplayFor(modelItem => item.IsVegetarianYesNo)</td>
+        <td>@Html.DisplayFor(modelItem => item.IsVeganYesNo)</td>
+        <td>@HtmlBuilder.DetailsLink(Url, "Menu", item.Menu_ID, item.Menu.Name)</td>
+        <td>@HtmlBuilder.DetailsLink(Url, "Store", item.Menu.Store_ID, item.Menu.Store.Name)</td>
+        <td>@HtmlBuilder.ListLink(Url, "Ingredient", item.Ingredients.Count(), new { mi = item.ID })</td>
+        <td class="list-actions">
+            @HtmlBuilder.EditItemLink(Url, "MenuItem", item.ID)
+            @HtmlBuilder.DeleteItemLink(Url, "MenuItem", item.ID)
+        </td>
+    </tr>
+}
+</table>

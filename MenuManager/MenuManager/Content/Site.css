@@ -1,0 +1,108 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*
+    List styles
+*/
+.list-actions {
+    width: 70px;
+}
+tr:not(:hover) .list-actions .btn {
+    visibility: hidden;
+}
+.short-col {
+    max-width: 150px;
+}
+
+/*
+    Form styles
+*/
+.short-field {
+    max-width: 150px;
+}
+textarea.form-control {
+    resize: both;
+    max-width: 100%;
+}
+.validation-summary-errors,
+.field-validation-error {
+    color: red;
+}
+.help-block {
+    font-size: 8pt;
+    margin-bottom: 0;
+}
+.help-block.has-error {
+    color: red;
+}
+input::ms-clear { /* Try to hide IE clear button in text fields */
+    width : 0;
+    height: 0;
+}
+.form-buttons {
+    margin-top: 30px;
+}
+.btn-submit {
+    margin-right: 10px;
+}
+
+/*
+    Details styles
+*/
+.details-actions > a {
+    height: 34px;
+    margin: -5px 10px 5px 0;
+    font-size: x-large;
+}
+.details-header {
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+}
+.details-header:not(.open),
+.details-delete {
+    visibility: hidden;
+    max-height: 0px;
+    opacity: 0;
+}
+.details-delete {
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+}
+.details-delete.open {
+    visibility: visible;
+    max-height: 999px;
+    min-height: 101px;
+    opacity: 1;
+}
+.multiline {
+    white-space: pre-wrap;
+    max-width: 100%;
+}

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MenuManager.Models.Employee>
+
+@{
+    ViewBag.Title = "Employees";
+}
+
+<h2>Employees</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Position)</th>
+            <th>@Html.DisplayNameFor(model => model.Wage)</th>
+            <th>@Html.DisplayNameFor(model => model.Phone)</th>
+            <th>@Html.DisplayNameFor(model => model.Store)</th>
+            <th></th>
+        </tr>
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@HtmlBuilder.DetailsLink(Url, "Employee", item.ID, item.Name)</td>
+        <td>@Html.DisplayFor(modelItem => item.Position)</td>
+        <td>@Html.DisplayFor(modelItem => item.Wage)</td>
+        <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+        <td>
+            @HtmlBuilder.DetailsLink(Url, "Store", item.Store_ID, item.Store.Name)
+        </td>
+        <td class="list-actions">
+            @HtmlBuilder.EditItemLink(Url, "Employee", item.ID)
+            @HtmlBuilder.DeleteItemLink(Url, "Employee", item.ID)
+        </td>
+    </tr>
+}
+</table>

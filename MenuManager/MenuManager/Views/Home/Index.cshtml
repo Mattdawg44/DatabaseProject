@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home";
+}
+
+<style>
+    .jumbotron {
+        text-align: center;
+    }
+    .btn {
+        width: 155px;
+        text-align: left;
+    }
+    .glyphicon {
+        margin-right: 5px;
+    }
+</style>
+
+<div class="jumbotron">
+    <p><a href="@Url.Action("Index", "Store")" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-home"></span>
+        Stores
+    </a></p>
+    <p><a href="@Url.Action("Index", "Employee")" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-user"></span> 
+        Employees
+    </a></p>
+    <p><a href="@Url.Action("Index", "Menu")" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Menus
+    </a></p>
+    <p><a href="@Url.Action("Index", "MenuItem")" class="btn btn-primary btn-lg">
+       <span class="glyphicon glyphicon-th-large"></span>
+        Menu Items
+    </a></p>
+    <p><a href="@Url.Action("Index", "Ingredient")" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-th"></span>
+        Ingredients
+    </a></p>
+</div>

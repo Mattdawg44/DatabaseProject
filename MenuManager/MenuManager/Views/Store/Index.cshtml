@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MenuManager.Models.Store>
+
+@{
+    ViewBag.Title = "Stores";
+}
+
+<h2>Stores</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>Contact Info</th>
+            <th>@Html.DisplayNameFor(model => model.Menus)</th>
+            <th>@Html.DisplayNameFor(model => model.MenuItems)</th>
+            <th>@Html.DisplayNameFor(model => model.Ingredients)</th>
+            <th>@Html.DisplayNameFor(model => model.Employees)</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@HtmlBuilder.DetailsLink(Url, "Store", item.ID, item.Name)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)<br />
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>@HtmlBuilder.ListLink(Url, "Menu", item.Menus.Count(), new { s = item.ID })</td>
+            <td>@HtmlBuilder.ListLink(Url, "MenuItem", item.MenuItems.Count(), new { s = item.ID })</td>
+            <td>@HtmlBuilder.ListLink(Url, "Ingredient", item.Ingredients.Count(), new { s = item.ID })</td>
+            <td>@HtmlBuilder.ListLink(Url, "Employee", item.Employees.Count(), new { s = item.ID })</td>
+            <td class="list-actions">
+                @HtmlBuilder.EditItemLink(Url, "Store", item.ID)
+                @HtmlBuilder.DeleteItemLink(Url, "Store", item.ID)
+            </td>
+        </tr>
+    }
+</table>

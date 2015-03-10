@@ -1,0 +1,27 @@
+﻿@model MenuManager.Models.Menu
+
+@{
+    ViewBag.Title = Model.Name + " Menu";
+}
+
+@HtmlBuilder.DetailsHeader(Url, "Menu", Model.ID, "Menus", Model.Name)
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Store)</dt>
+        <dd>@HtmlBuilder.DetailsLink(Url, "Store", Model.Store_ID, Model.Store.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.MenuItems)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "MenuItem", Model.MenuItems.Count(), new { m = Model.ID })</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Ingredients)</dt>
+        <dd>@HtmlBuilder.ListLink(Url, "Ingredient", Model.Ingredients.Count(), new { m = Model.ID })</dd>
+    </dl>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/details-delete.js")
+}
